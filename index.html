@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MotixMedia — Architectural Film</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700;900&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --header-height: 72px;
+      --site-colour: #0A0A0A;
+      --nav-colour: #0A0A0A;
+      --gold: #D4AF37;
+      --white: #FFFFFF;
+      --concrete: #EAEAEA;
+      --site-padding: clamp(24px, calc(18.667px + 1.111vw), 40px);
+      --section-padding: clamp(60px, calc(40px + 4.167vw), 120px);
+      --gap: 6px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', system-ui, sans-serif;
+      background-color: var(--site-colour);
+      color: var(--white);
+      overflow-x: hidden;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 100;
+      height: var(--header-height);
+      background-color: var(--nav-colour);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.14);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 var(--site-padding);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .logo-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.25rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav-links a {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.625rem;
+      font-weight: 400;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--concrete);
+      text-decoration: none;
+      opacity: 0.7;
+      transition: color 0.2s ease, opacity 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--gold);
+      opacity: 1;
+    }
+
+    /* MAIN */
+    main { padding-top: var(--header-height); }
+
+    /* HERO */
+    .hero {
+      width: 100%;
+      height: calc(100vh - var(--header-height));
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* INTRO */
+    .intro {
+      padding: var(--section-padding) var(--site-padding);
+      max-width: 660px;
+    }
+
+    .intro p {
+      font-family: 'Inter', sans-serif;
+      font-size: clamp(1rem, 0.875rem + 0.5vw, 1.25rem);
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--concrete);
+      margin: 0;
+      letter-spacing: 0.01em;
+    }
+
+    /* PORTFOLIO GRID */
+    .portfolio {
+      padding: 0 var(--site-padding) var(--section-padding);
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap);
+    }
+
+    .grid-row {
+      display: grid;
+      gap: var(--gap);
+    }
+
+    .row-3  { grid-template-columns: 1fr 1fr 1fr; }
+    .row-2a { grid-template-columns: 3fr 2fr; aspect-ratio: 5/2; }
+    .row-1  { grid-template-columns: 1fr; }
+    .row-2b { grid-template-columns: 2fr 3fr; aspect-ratio: 5/2; }
+
+    .grid-item {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .grid-item img,
+    .grid-item video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .grid-item:hover img,
+    .grid-item:hover video { transform: scale(1.04); }
+
+    .r-4-3  { aspect-ratio: 4/3; }
+    .r-21-9 { aspect-ratio: 21/9; }
+
+    /* FOOTER */
+    footer {
+      background-color: var(--nav-colour);
+      border-top: 1px solid rgba(212, 175, 55, 0.18);
+      color: var(--white);
+    }
+
+    .footer-inner {
+      padding: var(--section-padding) var(--site-padding) clamp(32px, 4vw, 52px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+    }
+
+    .footer-heading {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(3.5rem, 9vw, 8rem);
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      line-height: 1;
+      color: var(--white);
+      margin: 0 0 clamp(32px, 4vw, 56px);
+      display: block;
+    }
+
+    .footer-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-meta p {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.625rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(212, 175, 55, 0.55);
+      margin: 0;
+    }
+
+    .footer-image {
+      width: 100%;
+      aspect-ratio: 16 / 7;
+      overflow: hidden;
+    }
+
+    .footer-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      opacity: 0.5;
+    }
+
+    ::-webkit-scrollbar { width: 5px; }
+    ::-webkit-scrollbar-track { background: var(--site-colour); }
+    ::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.25); border-radius: 3px; }
+
+    /* ── CONTACT SECTION ── */
+    .contact-section {
+      padding: var(--section-padding) 0 0;
+      background-color: var(--site-colour);
+    }
+
+    .contact-header {
+      text-align: center;
+      padding: 0 var(--site-padding) clamp(40px, 5vw, 64px);
+    }
+
+    .contact-eyebrow {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(2.75rem, 7vw, 5.5rem);
+      font-weight: 900;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin: 0 0 0.75rem;
+      line-height: 1;
+    }
+
+    .contact-tagline {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1.1rem, 2.5vw, 1.75rem);
+      font-weight: 400;
+      color: var(--white);
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .contact-tagline em {
+      font-style: italic;
+      color: var(--gold);
+    }
+
+    .contact-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 560px;
+      border-top: 1px solid rgba(212, 175, 55, 0.12);
+    }
+
+    .contact-map {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .contact-map iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+      filter: invert(1) hue-rotate(180deg) brightness(0.7) saturate(0.4);
+    }
+
+    .office-card {
+      position: absolute;
+      bottom: clamp(20px, 3vw, 36px);
+      left: clamp(20px, 3vw, 36px);
+      background: rgba(10, 10, 10, 0.92);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      padding: clamp(16px, 2vw, 24px) clamp(20px, 2.5vw, 28px);
+      max-width: 260px;
+      backdrop-filter: blur(10px);
+    }
+
+    .office-tag {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.5625rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .office-name {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin: 0 0 12px;
+    }
+
+    .office-detail {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 300;
+      color: var(--concrete);
+      line-height: 1.65;
+      margin: 0 0 3px;
+    }
+
+    .office-detail.gold { color: var(--gold); }
+
+    .contact-form-panel {
+      padding: clamp(32px, 4vw, 56px);
+      border-left: 1px solid rgba(212, 175, 55, 0.1);
+      display: flex;
+      flex-direction: column;
+      background: #0d0d0d;
+    }
+
+    .form-eyebrow {
+      display: block;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.5625rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 10px;
+    }
+
+    .form-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--white);
+      margin: 0 0 clamp(24px, 3.5vw, 40px);
+      line-height: 1;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .c-field { margin-bottom: 18px; }
+
+    .c-field input,
+    .c-field textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(234, 234, 234, 0.18);
+      padding: 10px 0;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 300;
+      color: var(--white);
+      outline: none;
+      transition: border-color 0.25s ease;
+      -webkit-appearance: none;
+      border-radius: 0;
+    }
+
+    .c-field input::placeholder,
+    .c-field textarea::placeholder {
+      color: rgba(234, 234, 234, 0.3);
+    }
+
+    .c-field input:focus,
+    .c-field textarea:focus { border-bottom-color: var(--gold); }
+
+    .c-field input:valid:not(:placeholder-shown) {
+      border-bottom-color: rgba(212, 175, 55, 0.5);
+    }
+
+    .c-field input:invalid:not(:placeholder-shown):not(:focus) {
+      border-bottom-color: rgba(220, 53, 69, 0.6);
+    }
+
+    .c-field textarea { resize: none; height: 90px; }
+
+    .upload-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid rgba(234, 234, 234, 0.18);
+      padding: 10px 0;
+      cursor: pointer;
+      transition: border-color 0.25s ease;
+    }
+
+    .upload-label:hover { border-bottom-color: var(--gold); }
+
+    .upload-input { display: none; }
+
+    .upload-text {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8125rem;
+      font-weight: 300;
+      color: rgba(234, 234, 234, 0.3);
+    }
+
+    .upload-btn {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.5rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      padding: 5px 10px;
+      transition: background 0.2s ease;
+    }
+
+    .upload-btn:hover { background: rgba(212, 175, 55, 0.08); }
+
+    .c-submit {
+      margin-top: auto;
+      padding-top: clamp(20px, 3vw, 32px);
+    }
+
+    .btn-send {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #0A0A0A;
+      background: var(--gold);
+      border: none;
+      padding: 15px 36px;
+      cursor: pointer;
+      transition: background 0.2s ease, transform 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-send:hover { background: #c9a42e; transform: translateY(-1px); }
+    .btn-send:active { transform: translateY(0); }
+
+
+    /* ── CONTACT PANEL (nav slide-in) ── */
+    .panel-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 190;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .panel-backdrop.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .contact-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100vh;
+      width: min(500px, 92vw);
+      background: #0d0d0d;
+      border-left: 1px solid rgba(212, 175, 55, 0.15);
+      z-index: 200;
+      transform: translateX(100%);
+      transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      padding: clamp(48px, 6vw, 72px) clamp(28px, 4vw, 52px) clamp(32px, 4vw, 48px);
+    }
+
+    .contact-panel.open { transform: translateX(0); }
+
+    .panel-close {
+      position: absolute;
+      top: 22px;
+      right: 26px;
+      background: none;
+      border: none;
+      color: rgba(234, 234, 234, 0.5);
+      font-size: 1.375rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 4px;
+      transition: color 0.2s ease;
+    }
+
+    .panel-close:hover { color: var(--gold); }
+
+    /* VIDEO HOVER OVERLAY */
+    .grid-video { cursor: pointer; }
+
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.32);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.45s ease;
+      pointer-events: none;
+    }
+
+    .grid-video:hover .video-overlay { opacity: 1; }
+
+    .video-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: clamp(0.7rem, 1.1vw, 0.9375rem);
+      font-weight: 500;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #FFFFFF;
+      text-shadow: 0 2px 20px rgba(0, 0, 0, 0.6);
+      transform: translateY(4px);
+      transition: transform 0.45s ease;
+    }
+
+    .grid-video:hover .video-title { transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="logo">
+      <svg width="28" height="22" viewBox="0 0 60 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="0,48 0,0 10,0 30,26 50,0 60,0 60,48 50,48 50,14 30,38 10,14 10,48" fill="#D4AF37"/>
+      </svg>
+      <span class="logo-text">MotixMedia</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#">Studio</a></li>
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Journal</a></li>
+      <li><a href="#" id="contact-trigger">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- CONTACT SLIDE-IN PANEL -->
+  <div class="panel-backdrop" id="panel-backdrop"></div>
+  <aside class="contact-panel" id="contact-panel" aria-label="Contact form">
+    <button class="panel-close" id="panel-close" aria-label="Close">&times;</button>
+    <span class="form-eyebrow">Main Office</span>
+    <h3 class="form-title">Get in Touch</h3>
+    <form class="contact-form" action="https://formspree.io/f/mzdldaye" method="POST">
+      <!-- Formspree hidden config -->
+      <input type="hidden" name="_subject" value="New enquiry via MotixMedia website">
+      <input type="hidden" name="_replyto" value="merfii.shop@gmail.com">
+
+      <div class="c-field">
+        <input type="text" name="name" placeholder="Name*" required autocomplete="given-name">
+      </div>
+      <div class="c-field">
+        <input type="text" name="surname" placeholder="Surname*" required autocomplete="family-name">
+      </div>
+      <div class="c-field">
+        <input type="email" name="email" placeholder="Email*" required autocomplete="email">
+      </div>
+      <div class="c-field">
+        <input type="tel" name="phone" placeholder="Phone*" autocomplete="tel">
+      </div>
+      <div class="c-field">
+        <label class="upload-label">
+          <input type="file" name="file" class="upload-input">
+          <span class="upload-text">Upload a file</span>
+          <span class="upload-btn">&#8593; Upload File</span>
+        </label>
+      </div>
+      <div class="c-field">
+        <textarea name="message" placeholder="Message*" required></textarea>
+      </div>
+      <div class="c-submit">
+        <button type="submit" class="btn-send">Send Message &rarr;</button>
+      </div>
+    </form>
+  </aside>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <video autoplay loop muted playsinline>
+        <source src="Video.mp4.mp4" type="video/mp4">
+      </video>
+    </section>
+
+    <!-- INTRO -->
+    <section class="intro">
+      <p>We create cinematic films for the world's most extraordinary architectural spaces — capturing light, materiality, and the poetry of the built environment.</p>
+    </section>
+
+    <!-- PORTFOLIO GRID -->
+    <section class="portfolio">
+
+      <!-- Row 1 — three equal columns -->
+      <div class="grid-row row-3">
+        <div class="grid-item r-4-3 grid-video">
+          <video autoplay loop muted playsinline>
+            <source src="0624(3).mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="grid-item r-4-3 grid-video">
+          <video autoplay loop muted playsinline>
+            <source src="0624(1).mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="grid-item r-4-3 grid-video">
+          <video autoplay loop muted playsinline>
+            <source src="0624(2).mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+
+      <!-- Row 2 — 3:2 split -->
+      <div class="grid-row row-2a">
+        <div class="grid-item">
+          <img src="https://placehold.co/1200x675/1e1e1e/2e2e2e" alt="Project — Lobby sequence">
+        </div>
+        <div class="grid-item">
+          <img src="https://placehold.co/800x450/2a2a2a/3a3a3a" alt="Project — Residential">
+        </div>
+      </div>
+
+      <!-- Row 3 — full-width panoramic -->
+      <div class="grid-row row-1">
+        <div class="grid-item r-21-9">
+          <img src="https://placehold.co/2100x900/131313/222222" alt="Project — Panoramic exterior">
+        </div>
+      </div>
+
+      <!-- Row 4 — 2:3 split -->
+      <div class="grid-row row-2b">
+        <div class="grid-item">
+          <img src="https://placehold.co/800x600/222222/323232" alt="Project — Heritage site">
+        </div>
+        <div class="grid-item">
+          <img src="https://placehold.co/1200x900/181818/282828" alt="Project — Hospitality">
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-heading">MotixMedia</span>
+      <div class="footer-meta">
+        <p>Architectural Film &amp; Production</p>
+        <p>&copy; 2026 MotixMedia. All rights reserved.</p>
+      </div>
+    </div>
+    <div class="footer-image">
+      <img src="https://placehold.co/1920x720/0d0d0d/1a1a1a" alt="MotixMedia — production still">
+    </div>
+  </footer>
+
+  <script>
+    // Contact panel
+    const panel     = document.getElementById('contact-panel');
+    const backdrop  = document.getElementById('panel-backdrop');
+    const trigger   = document.getElementById('contact-trigger');
+    const closeBtn  = document.getElementById('panel-close');
+
+    function openPanel(e) {
+      e.preventDefault();
+      panel.classList.add('open');
+      backdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closePanel() {
+      panel.classList.remove('open');
+      backdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    trigger.addEventListener('click', openPanel);
+    closeBtn.addEventListener('click', closePanel);
+    backdrop.addEventListener('click', closePanel);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closePanel(); });
+
+    // Grid videos
+    document.querySelectorAll('.grid-video video').forEach(video => {
+      video.pause();
+      video.currentTime = 0;
+
+      const item = video.closest('.grid-video');
+
+      item.addEventListener('mouseenter', () => video.play());
+      item.addEventListener('mouseleave', () => {
+        video.pause();
+        video.currentTime = 0;
+      });
+    });
+  </script>
+</body>
+</html>

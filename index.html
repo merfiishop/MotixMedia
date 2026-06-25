@@ -430,7 +430,16 @@
     .t-foot .t-vc { display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--gold);font-weight:500 }
     .t-foot .t-vc .t-dot { width:4px;height:4px;border-radius:50%;background:var(--gold) }
     .t-foot .t-date { font-size:10.5px;color:rgba(255,255,255,.38) }
-    @media(max-width:520px){ .t-card{width:290px;padding:18px} .t-text{font-size:13px} }
+    @media(max-width:768px){
+      .testimonials { padding: 24px 0 20px; }
+      .t-card { width:248px; padding:12px 14px; gap:8px; }
+      .t-avatar { width:32px; height:32px; font-size:11px; }
+      .t-who .t-name { font-size:11.5px; }
+      .t-who .t-role { font-size:9.5px; }
+      .t-stars svg { width:10px; height:10px; }
+      .t-text { font-size:11.5px; line-height:1.4; display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden; }
+      .t-foot .t-vc, .t-foot .t-date { font-size:9px; }
+    }
     @media(prefers-reduced-motion:reduce){ .t-track{animation:none} .marquee{overflow-x:auto} }
 
     ::-webkit-scrollbar { width: 5px; }

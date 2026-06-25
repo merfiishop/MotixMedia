@@ -505,6 +505,30 @@
 
     .panel-close:hover { color: var(--gold); }
 
+    /* HERO PLAY BUTTON (mobile) */
+    .hero-play-btn {
+      display: none;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 72px;
+      height: 72px;
+      background: rgba(10, 10, 10, 0.5);
+      border: 1px solid rgba(212, 175, 55, 0.55);
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    @media (max-width: 768px) {
+      #hero-section { cursor: pointer; }
+      .hero-play-btn { display: flex; }
+      .hero-play-btn.hidden { opacity: 0; }
+    }
+
     /* VIDEO HOVER OVERLAY */
     .grid-video { cursor: pointer; }
 
@@ -699,10 +723,15 @@
 
   <main>
     <!-- HERO -->
-    <section class="hero">
-      <video autoplay loop muted playsinline>
+    <section class="hero" id="hero-section">
+      <video id="hero-video" loop muted playsinline preload="auto">
         <source src="Video.mp4.mp4" type="video/mp4">
       </video>
+      <div class="hero-play-btn" id="hero-play-btn" aria-hidden="true">
+        <svg width="22" height="26" viewBox="0 0 22 26" fill="none">
+          <path d="M0 0L22 13L0 26V0Z" fill="#D4AF37"/>
+        </svg>
+      </div>
     </section>
 
     <!-- INTRO -->
@@ -777,12 +806,33 @@
   </footer>
 
   <script>
-    // Ensure hero video plays on mobile
-    const heroVideo = document.querySelector('.hero video');
+    // Detect touch device
+    const isTouch = window.matchMedia('(hover: none)').matches;
+
+    // Hero video
+    const heroVideo   = document.getElementById('hero-video');
+    const heroSection = document.getElementById('hero-section');
+    const heroPlayBtn = document.getElementById('hero-play-btn');
+
     if (heroVideo) {
-      heroVideo.play().catch(() => {
-        document.addEventListener('touchstart', () => heroVideo.play(), { once: true });
-      });
+      if (isTouch) {
+        // Show first frame, tap to play/pause
+        heroVideo.addEventListener('loadeddata', () => {
+          heroVideo.currentTime = 0.001;
+        }, { once: true });
+
+        heroSection.addEventListener('click', () => {
+          if (heroVideo.paused) {
+            heroVideo.play();
+            heroPlayBtn.classList.add('hidden');
+          } else {
+            heroVideo.pause();
+            heroPlayBtn.classList.remove('hidden');
+          }
+        });
+      } else {
+        heroVideo.play().catch(() => {});
+      }
     }
 
     // Contact panel
@@ -831,8 +881,6 @@
     if (mobileCT) mobileCT.addEventListener('click', openPanel);
 
     // Grid videos — hover on desktop, tap to play/pause on touch
-    const isTouch = window.matchMedia('(hover: none)').matches;
-
     document.querySelectorAll('.grid-video video').forEach(video => {
       video.pause();
       video.currentTime = 0;

@@ -716,17 +716,17 @@
       <!-- Row 1 — three equal columns -->
       <div class="grid-row row-3">
         <div class="grid-item r-4-3 grid-video">
-          <video autoplay loop muted playsinline>
+          <video loop muted playsinline>
             <source src="0624(3).mp4" type="video/mp4">
           </video>
         </div>
         <div class="grid-item r-4-3 grid-video">
-          <video autoplay loop muted playsinline>
+          <video loop muted playsinline>
             <source src="0624(1).mp4" type="video/mp4">
           </video>
         </div>
         <div class="grid-item r-4-3 grid-video">
-          <video autoplay loop muted playsinline>
+          <video loop muted playsinline>
             <source src="0624(2).mp4" type="video/mp4">
           </video>
         </div>
@@ -830,19 +830,27 @@
 
     if (mobileCT) mobileCT.addEventListener('click', openPanel);
 
-    // Grid videos — hover on desktop, autoplay on touch
+    // Grid videos — hover on desktop, tap to play/pause on touch
     const isTouch = window.matchMedia('(hover: none)').matches;
 
     document.querySelectorAll('.grid-video video').forEach(video => {
-      if (isTouch) {
-        video.play();
-        return;
-      }
       video.pause();
       video.currentTime = 0;
       const item = video.closest('.grid-video');
-      item.addEventListener('mouseenter', () => video.play());
-      item.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+
+      if (isTouch) {
+        item.addEventListener('click', () => {
+          if (video.paused) {
+            video.play();
+          } else {
+            video.pause();
+            video.currentTime = 0;
+          }
+        });
+      } else {
+        item.addEventListener('mouseenter', () => video.play());
+        item.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
+      }
     });
   </script>
 </body>

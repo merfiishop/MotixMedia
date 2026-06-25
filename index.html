@@ -396,6 +396,43 @@
       .chat-input { font-size: 0.7rem; padding: 11px 12px; }
     }
 
+    /* ── TESTIMONIALS ── */
+    .testimonials {
+      padding: clamp(40px, 6vw, 72px) 0 clamp(32px, 5vw, 56px);
+      border-bottom: 1px solid rgba(212,175,55,0.1);
+    }
+    .t-eyebrow { display:flex;align-items:center;justify-content:center;gap:11px;margin-bottom:6px }
+    .t-eyebrow .t-d { width:6px;height:6px;background:var(--gold);transform:rotate(45deg) }
+    .t-eyebrow span { font-family:'Inter',sans-serif;font-weight:600;font-size:10.5px;letter-spacing:.3em;color:var(--gold);text-transform:uppercase }
+    .marquee { position:relative;width:100%;overflow:hidden;
+      -webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+      mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);
+      margin-top:20px }
+    .t-track { display:flex;width:max-content;gap:16px;align-items:stretch;
+      animation:t-scroll 56s linear infinite;will-change:transform }
+    .marquee:hover .t-track { animation-play-state:paused }
+    @keyframes t-scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .t-card { flex:0 0 auto;width:344px;display:flex;flex-direction:column;gap:13px;
+      border:1px solid rgba(255,255,255,0.08);background:rgba(255,255,255,0.03);border-radius:14px;padding:20px 22px 18px }
+    .t-head { display:flex;align-items:center;gap:12px }
+    .t-avatar { width:42px;height:42px;border-radius:50%;flex:0 0 auto;display:flex;align-items:center;justify-content:center;
+      font-family:'Montserrat',sans-serif;font-weight:700;font-size:15px;color:#0A0A0A;border:1px solid rgba(255,255,255,.12) }
+    .t-who { flex:1;min-width:0 }
+    .t-who .t-name { font-family:'Montserrat',sans-serif;font-weight:700;font-size:13.5px;color:var(--white);display:flex;align-items:center;gap:6px }
+    .t-who .t-name .t-vf { display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;background:var(--gold);flex:0 0 auto }
+    .t-who .t-name .t-vf svg { width:9px;height:9px;stroke:#0A0A0A;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round }
+    .t-who .t-role { font-size:11px;color:rgba(255,255,255,0.55);margin-top:2px }
+    .t-stars { display:flex;gap:2px;flex:0 0 auto }
+    .t-stars svg { width:13px;height:13px;fill:var(--gold) }
+    .t-text { font-family:'Inter',sans-serif;font-weight:300;font-size:13.5px;line-height:1.5;color:var(--concrete) }
+    .t-text .t-hl { color:var(--white);font-weight:400 }
+    .t-foot { display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:1px }
+    .t-foot .t-vc { display:flex;align-items:center;gap:6px;font-size:10.5px;color:var(--gold);font-weight:500 }
+    .t-foot .t-vc .t-dot { width:4px;height:4px;border-radius:50%;background:var(--gold) }
+    .t-foot .t-date { font-size:10.5px;color:rgba(255,255,255,.38) }
+    @media(max-width:520px){ .t-card{width:290px;padding:18px} .t-text{font-size:13px} }
+    @media(prefers-reduced-motion:reduce){ .t-track{animation:none} .marquee{overflow-x:auto} }
+
     ::-webkit-scrollbar { width: 5px; }
     ::-webkit-scrollbar-track { background: var(--site-colour); }
     ::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.25); border-radius: 3px; }
@@ -887,6 +924,76 @@
       </video>
     </section>
 
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+      <div class="t-eyebrow"><span class="t-d"></span><span>What Clients Say</span><span class="t-d"></span></div>
+      <div class="marquee">
+        <div class="t-track" id="t-track">
+
+          <div class="t-card">
+            <div class="t-head">
+              <div class="t-avatar" style="background:linear-gradient(135deg,#E7C977,#C9A24B)">MH</div>
+              <div class="t-who"><div class="t-name">Mohammed H. <span class="t-vf"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span></div><div class="t-role">Developer &middot; Dubai</div></div>
+              <div class="t-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg></div>
+            </div>
+            <div class="t-text">Honestly wasn't sure AI could handle a whole off-plan tower, but we had <span class="t-hl">two units reserved in the first week</span> of posting the video. Already booked them for the next phase.</div>
+            <div class="t-foot"><span class="t-vc"><span class="t-dot"></span>Verified client</span><span class="t-date">2 weeks ago</span></div>
+          </div>
+
+          <div class="t-card">
+            <div class="t-head">
+              <div class="t-avatar" style="background:linear-gradient(135deg,#2A2A30,#16161A);color:#E7C977">LM</div>
+              <div class="t-who"><div class="t-name">Lucía M. <span class="t-vf"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span></div><div class="t-role">Luxury Agent &middot; Marbella</div></div>
+              <div class="t-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg></div>
+            </div>
+            <div class="t-text">It actually feels like you're <span class="t-hl">walking through the apartment</span>, not flicking through photos. Clients keep mentioning it on viewings.</div>
+            <div class="t-foot"><span class="t-vc"><span class="t-dot"></span>Verified client</span><span class="t-date">last month</span></div>
+          </div>
+
+          <div class="t-card">
+            <div class="t-head">
+              <div class="t-avatar" style="background:linear-gradient(135deg,#E7C977,#C9A24B)">JW</div>
+              <div class="t-who"><div class="t-name">James W. <span class="t-vf"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span></div><div class="t-role">Property Developer &middot; London</div></div>
+              <div class="t-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg></div>
+            </div>
+            <div class="t-text">Sent the floor plans Monday, had a cinematic video back by Friday. The <span class="t-hl">turnaround alone</span> won me over.</div>
+            <div class="t-foot"><span class="t-vc"><span class="t-dot"></span>Verified client</span><span class="t-date">3 weeks ago</span></div>
+          </div>
+
+          <div class="t-card">
+            <div class="t-head">
+              <div class="t-avatar" style="background:linear-gradient(135deg,#2A2A30,#16161A);color:#E7C977">SR</div>
+              <div class="t-who"><div class="t-name">Sofía R. <span class="t-vf"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span></div><div class="t-role">Agency Owner &middot; Costa del Sol</div></div>
+              <div class="t-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg></div>
+            </div>
+            <div class="t-text">I've worked with three videographers before. This was faster, cheaper, and somehow looked <span class="t-hl">more expensive</span> than any of them.</div>
+            <div class="t-foot"><span class="t-vc"><span class="t-dot"></span>Verified client</span><span class="t-date">1 week ago</span></div>
+          </div>
+
+          <div class="t-card">
+            <div class="t-head">
+              <div class="t-avatar" style="background:linear-gradient(135deg,#E7C977,#C9A24B)">DC</div>
+              <div class="t-who"><div class="t-name">Daniel C. <span class="t-vf"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span></div><div class="t-role">Broker &middot; Miami</div></div>
+              <div class="t-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg></div>
+            </div>
+            <div class="t-text">Not a slideshow — an actual walkthrough. A buyer told me it's the reason they booked the showing.</div>
+            <div class="t-foot"><span class="t-vc"><span class="t-dot"></span>Verified client</span><span class="t-date">Apr 2026</span></div>
+          </div>
+
+          <div class="t-card">
+            <div class="t-head">
+              <div class="t-avatar" style="background:linear-gradient(135deg,#2A2A30,#16161A);color:#E7C977">AN</div>
+              <div class="t-who"><div class="t-name">Amelia N. <span class="t-vf"><svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg></span></div><div class="t-role">Realtor &middot; Sydney</div></div>
+              <div class="t-stars"><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg><svg viewBox="0 0 24 24"><path d="M12 2l3 6.9 7.5.6-5.7 4.9 1.8 7.3L12 17.8 5.4 21.7l1.8-7.3L1.5 9.5 9 8.9z"/></svg></div>
+            </div>
+            <div class="t-text">Our reels finally stop the scroll. Enquiries on the last two listings were <span class="t-hl">noticeably up</span>.</div>
+            <div class="t-foot"><span class="t-vc"><span class="t-dot"></span>Verified client</span><span class="t-date">2 months ago</span></div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
     <!-- INTRO -->
     <section class="intro">
       <p>We create cinematic films for the world's most extraordinary architectural spaces — capturing light, materiality, and the poetry of the built environment.</p>
@@ -986,6 +1093,9 @@
   </div>
 
   <script>
+    // Testimonials infinite scroll — duplicate cards for seamless loop
+    (function(){ var t = document.getElementById('t-track'); if(t) t.innerHTML += t.innerHTML; })();
+
     // Force play all videos (handles browsers that block autoplay)
     document.querySelectorAll('video').forEach(v => v.play().catch(() => {}));
 

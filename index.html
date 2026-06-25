@@ -777,6 +777,14 @@
   </footer>
 
   <script>
+    // Ensure hero video plays on mobile
+    const heroVideo = document.querySelector('.hero video');
+    if (heroVideo) {
+      heroVideo.play().catch(() => {
+        document.addEventListener('touchstart', () => heroVideo.play(), { once: true });
+      });
+    }
+
     // Contact panel
     const panel     = document.getElementById('contact-panel');
     const backdrop  = document.getElementById('panel-backdrop');

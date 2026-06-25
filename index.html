@@ -505,30 +505,6 @@
 
     .panel-close:hover { color: var(--gold); }
 
-    /* HERO PLAY BUTTON (mobile) */
-    .hero-play-btn {
-      display: none;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 72px;
-      height: 72px;
-      background: rgba(10, 10, 10, 0.5);
-      border: 1px solid rgba(212, 175, 55, 0.55);
-      border-radius: 50%;
-      align-items: center;
-      justify-content: center;
-      pointer-events: none;
-      transition: opacity 0.3s ease;
-    }
-
-    @media (max-width: 768px) {
-      #hero-section { cursor: pointer; }
-      .hero-play-btn { display: flex; }
-      .hero-play-btn.hidden { opacity: 0; }
-    }
-
     /* VIDEO HOVER OVERLAY */
     .grid-video { cursor: pointer; }
 
@@ -723,15 +699,10 @@
 
   <main>
     <!-- HERO -->
-    <section class="hero" id="hero-section">
-      <video id="hero-video" loop muted playsinline preload="auto">
+    <section class="hero">
+      <video autoplay loop muted playsinline>
         <source src="Video.mp4.mp4" type="video/mp4">
       </video>
-      <div class="hero-play-btn" id="hero-play-btn" aria-hidden="true">
-        <svg width="22" height="26" viewBox="0 0 22 26" fill="none">
-          <path d="M0 0L22 13L0 26V0Z" fill="#D4AF37"/>
-        </svg>
-      </div>
     </section>
 
     <!-- INTRO -->
@@ -745,17 +716,17 @@
       <!-- Row 1 — three equal columns -->
       <div class="grid-row row-3">
         <div class="grid-item r-4-3 grid-video">
-          <video loop muted playsinline>
+          <video autoplay loop muted playsinline>
             <source src="0624(3).mp4" type="video/mp4">
           </video>
         </div>
         <div class="grid-item r-4-3 grid-video">
-          <video loop muted playsinline>
+          <video autoplay loop muted playsinline>
             <source src="0624(1).mp4" type="video/mp4">
           </video>
         </div>
         <div class="grid-item r-4-3 grid-video">
-          <video loop muted playsinline>
+          <video autoplay loop muted playsinline>
             <source src="0624(2).mp4" type="video/mp4">
           </video>
         </div>
@@ -806,34 +777,8 @@
   </footer>
 
   <script>
-    // Detect touch device
-    const isTouch = window.matchMedia('(hover: none)').matches;
-
-    // Hero video
-    const heroVideo   = document.getElementById('hero-video');
-    const heroSection = document.getElementById('hero-section');
-    const heroPlayBtn = document.getElementById('hero-play-btn');
-
-    if (heroVideo) {
-      if (isTouch) {
-        // Show first frame, tap to play/pause
-        heroVideo.addEventListener('loadeddata', () => {
-          heroVideo.currentTime = 0.001;
-        }, { once: true });
-
-        heroSection.addEventListener('click', () => {
-          if (heroVideo.paused) {
-            heroVideo.play();
-            heroPlayBtn.classList.add('hidden');
-          } else {
-            heroVideo.pause();
-            heroPlayBtn.classList.remove('hidden');
-          }
-        });
-      } else {
-        heroVideo.play().catch(() => {});
-      }
-    }
+    // Force play all videos (handles browsers that block autoplay)
+    document.querySelectorAll('video').forEach(v => v.play().catch(() => {}));
 
     // Contact panel
     const panel     = document.getElementById('contact-panel');
@@ -880,26 +825,17 @@
 
     if (mobileCT) mobileCT.addEventListener('click', openPanel);
 
-    // Grid videos — hover on desktop, tap to play/pause on touch
-    document.querySelectorAll('.grid-video video').forEach(video => {
-      video.pause();
-      video.currentTime = 0;
-      const item = video.closest('.grid-video');
-
-      if (isTouch) {
-        item.addEventListener('click', () => {
-          if (video.paused) {
-            video.play();
-          } else {
-            video.pause();
-            video.currentTime = 0;
-          }
-        });
-      } else {
+    // Grid videos — hover to play on desktop only
+    const isTouch = window.matchMedia('(hover: none)').matches;
+    if (!isTouch) {
+      document.querySelectorAll('.grid-video video').forEach(video => {
+        video.pause();
+        video.currentTime = 0;
+        const item = video.closest('.grid-video');
         item.addEventListener('mouseenter', () => video.play());
         item.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
-      }
-    });
+      });
+    }
   </script>
 </body>
 </html>

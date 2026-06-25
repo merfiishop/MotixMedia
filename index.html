@@ -825,17 +825,21 @@
 
     if (mobileCT) mobileCT.addEventListener('click', openPanel);
 
-    // Grid videos — hover to play on desktop only
+    // Grid videos — hover on desktop, tap to pause/resume on mobile
     const isTouch = window.matchMedia('(hover: none)').matches;
-    if (!isTouch) {
-      document.querySelectorAll('.grid-video video').forEach(video => {
+    document.querySelectorAll('.grid-video video').forEach(video => {
+      const item = video.closest('.grid-video');
+      if (isTouch) {
+        item.addEventListener('click', () => {
+          if (video.paused) { video.play(); } else { video.pause(); }
+        });
+      } else {
         video.pause();
         video.currentTime = 0;
-        const item = video.closest('.grid-video');
         item.addEventListener('mouseenter', () => video.play());
         item.addEventListener('mouseleave', () => { video.pause(); video.currentTime = 0; });
-      });
-    }
+      }
+    });
   </script>
 </body>
 </html>

@@ -94,19 +94,31 @@
     main { padding-top: var(--header-height); }
 
     /* HERO */
-    .hero {
-      width: 100%;
-      height: calc(100vh - var(--header-height));
-      overflow: hidden;
-      position: relative;
-    }
-
-    .hero video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
+    .mx-hero{position:relative;width:100%;height:92vh;min-height:560px;overflow:hidden;
+      display:flex;align-items:center;justify-content:center;background:#0A0A0A;font-family:'Inter',sans-serif}
+    .mx-hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
+    .mx-hero__scrim{position:absolute;inset:0;z-index:2;
+      background:linear-gradient(180deg,rgba(10,10,10,.55) 0%,rgba(10,10,10,.25) 40%,rgba(10,10,10,.8) 100%)}
+    .mx-hero__inner{position:relative;z-index:3;text-align:center;padding:0 24px;max-width:880px}
+    .mx-hero__eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#D4AF37;font-weight:600;margin-bottom:22px}
+    .mx-hero__title{font-family:'Montserrat',sans-serif;font-weight:800;color:#fff;line-height:.98;letter-spacing:-.015em;
+      font-size:clamp(38px,8vw,84px);margin:0}
+    .mx-hero__title span{color:#D4AF37}
+    .mx-hero__sub{color:rgba(255,255,255,.82);font-size:clamp(15px,2vw,19px);line-height:1.55;margin:22px auto 0;max-width:46ch}
+    .mx-hero__cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:34px}
+    .mx-btn{display:inline-flex;align-items:center;gap:9px;font-family:'Montserrat',sans-serif;font-weight:700;font-size:13px;
+      letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:15px 32px;border-radius:999px;transition:.3s}
+    .mx-btn svg{width:15px;height:15px;stroke:#0A0A0A;fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+    .mx-btn--gold{background:#D4AF37;color:#0A0A0A;box-shadow:0 10px 30px rgba(212,175,55,.3)}
+    .mx-btn--gold:hover{transform:translateY(-2px);box-shadow:0 14px 38px rgba(212,175,55,.42)}
+    .mx-btn--ghost{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.35)}
+    .mx-btn--ghost:hover{border-color:#D4AF37;color:#D4AF37}
+    .mx-hero__scroll{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:3;
+      width:26px;height:42px;border:1px solid rgba(255,255,255,.35);border-radius:14px;display:flex;justify-content:center;padding-top:8px}
+    .mx-hero__scroll span{width:3px;height:8px;background:#D4AF37;border-radius:2px;animation:mxscroll 1.6s ease-in-out infinite}
+    @keyframes mxscroll{0%{opacity:0;transform:translateY(-4px)}50%{opacity:1}100%{opacity:0;transform:translateY(10px)}}
+    @media(max-width:600px){.mx-hero{height:88vh}.mx-hero__cta{flex-direction:column;align-items:center}.mx-btn{width:100%;max-width:280px;justify-content:center}}
+    @media(prefers-reduced-motion:reduce){.mx-hero__scroll span{animation:none}}
 
     /* INTRO */
     .intro {
@@ -977,10 +989,26 @@
 
   <main>
     <!-- HERO -->
-    <section class="hero">
-      <video autoplay loop muted playsinline>
+    <section class="mx-hero">
+      <video class="mx-hero__video" autoplay muted loop playsinline preload="auto">
         <source src="Video.mp4.mp4" type="video/mp4">
       </video>
+      <div class="mx-hero__scrim"></div>
+
+      <div class="mx-hero__inner">
+        <div class="mx-hero__eyebrow">Architectural Film &middot; Built or Unbuilt</div>
+        <h1 class="mx-hero__title">We turn property<br>into <span>emotion.</span></h1>
+        <p class="mx-hero__sub">Cinematic walkthroughs for finished homes &mdash; and for buildings that don&rsquo;t exist yet. Studio-grade visuals, AI-accelerated.</p>
+        <div class="mx-hero__cta">
+          <a href="#quote" class="mx-btn mx-btn--gold mx-quote-open">Request a Quote
+            <svg viewBox="0 0 24 24"><path d="M7 7h10v10M7 17L17 7"/></svg></a>
+          <a href="#work" class="mx-btn mx-btn--ghost">See the Work</a>
+        </div>
+      </div>
+
+      <a href="#work" class="mx-hero__scroll" aria-label="Scroll down">
+        <span></span>
+      </a>
     </section>
 
     <!-- TESTIMONIALS -->

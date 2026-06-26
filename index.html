@@ -23,11 +23,15 @@
 
     *, *::before, *::after { box-sizing: border-box; }
 
-    html, body {
+    html {
+      margin: 0; padding: 0;
+      background: #0A0A0A; /* fallback if video fails */
+    }
+    body {
       margin: 0;
       padding: 0;
       font-family: 'Inter', system-ui, sans-serif;
-      background-color: var(--site-colour);
+      background: transparent;
       color: var(--white);
       overflow-x: hidden;
       text-rendering: optimizeLegibility;
@@ -94,12 +98,15 @@
     main { padding-top: var(--header-height); }
 
     /* HERO */
-    .mx-hero{position:relative;height:92vh;overflow:hidden;
-      display:flex;align-items:center;justify-content:center;background:#0A0A0A}
-    .mx-hero__video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1}
-    .mx-hero__scrim{position:absolute;inset:0;z-index:2;
-      background:linear-gradient(180deg,rgba(10,10,10,.55) 0%,rgba(10,10,10,.25) 40%,rgba(10,10,10,.8) 100%)}
-    .mx-hero__inner{position:relative;z-index:3;text-align:center;padding:0 24px;max-width:880px}
+    /* fixed full-page background video */
+    .page-video-bg{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;pointer-events:none}
+    .page-video-scrim{position:fixed;inset:0;z-index:-1;pointer-events:none;
+      background:linear-gradient(180deg,rgba(10,10,10,.45) 0%,rgba(10,10,10,.6) 50%,rgba(10,10,10,.78) 100%)}
+    /* hero — transparent, sits on top of fixed video */
+    .mx-hero{position:relative;height:92vh;display:flex;align-items:center;justify-content:center}
+    .mx-hero__scrim{position:absolute;inset:0;z-index:1;
+      background:linear-gradient(180deg,rgba(10,10,10,.35) 0%,rgba(10,10,10,.1) 40%,rgba(10,10,10,.7) 100%)}
+    .mx-hero__inner{position:relative;z-index:2;text-align:center;padding:0 24px;max-width:880px}
     .mx-hero__eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#D4AF37;font-weight:600;margin-bottom:22px}
     .mx-hero__title{font-family:'Montserrat',sans-serif;font-weight:800;color:#fff;line-height:.98;letter-spacing:-.015em;
       font-size:clamp(38px,8vw,84px);margin:0}
@@ -913,6 +920,12 @@
 </head>
 <body>
 
+  <!-- FIXED BACKGROUND VIDEO -->
+  <video class="page-video-bg" autoplay muted loop playsinline>
+    <source src="Video.mp4.mp4" type="video/mp4">
+  </video>
+  <div class="page-video-scrim"></div>
+
   <!-- NAV -->
   <nav>
     <a href="#" class="logo">
@@ -984,9 +997,6 @@
   <main>
     <!-- HERO -->
     <section class="mx-hero">
-      <video class="mx-hero__video" autoplay muted loop playsinline preload="auto">
-        <source src="Video.mp4.mp4" type="video/mp4">
-      </video>
       <div class="mx-hero__scrim"></div>
 
       <div class="mx-hero__inner">

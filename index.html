@@ -1161,17 +1161,106 @@
     const chatSend     = document.getElementById('chat-send');
 
     const botResponses = [
-      { keys: ['hello','hi','hey','good morning','good evening','howdy'], reply: "Hello! Welcome to MotixMedia. How can I help you today? Feel free to ask about our services, portfolio, or how to get in touch." },
-      { keys: ['service','what do you do','offer','speciali','produce','production'], reply: "We create cinematic films for the world's most extraordinary architectural spaces — capturing light, materiality, and the poetry of the built environment. Residential, hospitality, commercial — we cover it all." },
-      { keys: ['price','cost','quote','how much','rate','budget','fee'], reply: "Every project is unique, so pricing is tailored to scope and complexity. Please use the Contact form (top-right nav) or send us a message for a custom quote." },
-      { keys: ['contact','reach','email','phone','get in touch','enquir'], reply: "You can reach us through the Contact panel in the top navigation. We typically respond within 24 hours." },
-      { keys: ['portfolio','example','previous','past','work','sample','reel','showreel'], reply: "Our portfolio is showcased right on this page — scroll up to explore our latest architectural films." },
-      { keys: ['location','where','based','office','country','city','address'], reply: "Our main office details are listed in the Contact section. We work with clients globally — location is never a barrier to great work." },
-      { keys: ['time','how long','duration','turnaround','delivery','deadline','weeks'], reply: "A typical architectural film takes 2–4 weeks from shoot to final delivery, depending on scope. We can discuss your specific timeline in a consultation." },
-      { keys: ['team','crew','people','videographer','cinematograph','director','editor'], reply: "Our team consists of experienced cinematographers, directors, and editors specialising in architectural and real estate film production." },
-      { keys: ['thank','thanks','great','perfect','awesome','appreciate'], reply: "You're welcome! Is there anything else I can help you with?" },
+      {
+        keys: ['hello','hi','hey','good morning','good evening','howdy','sup','what\'s up'],
+        replies: [
+          "Hey! Good to hear from you. I'm here to help with anything MotixMedia-related — whether that's pricing, what we do, or just figuring out if we're the right fit for your project. What's on your mind?",
+          "Hi there! Welcome. Feel free to ask me anything — services, pricing, timelines, you name it. What are you working on?",
+          "Hey, welcome to MotixMedia! What can I help you with today?"
+        ]
+      },
+      {
+        keys: ['what do you do','who are you','about','what is motix','what\'s motix'],
+        replies: [
+          "We make cinematic property videos — the kind that actually make people stop scrolling. Think smooth walkthroughs, golden-hour grades, proper motion. We use AI to get the same result as a full crew shoot, but faster and at a fraction of the cost. We work with agents, developers, and luxury sellers across the UK, Spain, Dubai, Australia and the US.",
+          "Short version: we turn property photos and floor plans into cinematic videos that sell. Longer version — we use AI-powered production to create walkthrough films that feel like a high-end crew shot them, without the 3-week wait or the £5k invoice. Anything specific you'd like to know?"
+        ]
+      },
+      {
+        keys: ['price','cost','how much','rate','budget','fee','pricing','charge','expensive','cheap','afford'],
+        replies: [
+          "Good question. Here's a rough idea:\n\n• Flat walkthrough (from photos) — from €190\n• High-end home / luxury listing — €590 to €1,500\n• Off-plan development video (from floor plans) — from €890\n• 10-property agency package — €1,490 total (€149 each)\n\nThat said, every project is a bit different — scope, number of rooms, revisions, turnaround speed all play a role. Want to tell me a bit about what you're working on? I can give you a much better idea of what it'd actually cost.",
+          "Prices really do vary depending on what you need, but to give you a starting point:\n\n• A flat walkthrough starts from €190\n• Luxury home films run €590–€1,500\n• Developer off-plan videos from floor plans start at €890\n• Rush delivery (48h) is available at +25%\n\nHonestly though, the best thing is to just have a quick chat — what's the project? I can point you in the right direction.",
+          "Sure — here's where things generally land:\n\n• Single flat walkthrough: from €190\n• High-end residential: from €590\n• Off-plan / developer: from €890\n• 10-property bundle: €1,490\n\nIt really comes down to your specific project though. What are you looking to shoot — or is it off-plan?"
+        ]
+      },
+      {
+        keys: ['flat','apartment','studio','one bed','two bed'],
+        replies: [
+          "For a flat we usually start at €190 — that gets you a continuous room-to-room walkthrough up to 45 seconds, with music, captions and branding included. Both landscape and vertical (for Reels/Stories) formats come as standard.\n\nIf it's a more premium listing or you want extra revisions, that moves the price up a little. What kind of flat is it?",
+          "Flat walkthroughs start from €190. That covers up to 45 seconds of continuous motion, both 16:9 and 9:16 formats, music, and your branding. Turnaround is typically 48 hours. Is this for a listing you've got coming up?"
+        ]
+      },
+      {
+        keys: ['luxury','high end','villa','mansion','penthouse','premium'],
+        replies: [
+          "For luxury properties we do full cinematic treatment — golden-hour grading, lifestyle mood, 2D-to-3D parallax effects, and a proper logo sting at the end. Those start at €590 and can go up to around €1,500 depending on size and complexity.\n\nIt's very much tailored to the property. What are you working with?",
+          "Luxury listings get the full cinematic package — it goes well beyond a simple walkthrough. We're talking golden-hour grade, motion effects, branded intro, all formats. Starting from €590, going up based on scope.\n\nEvery one is a bit different though — tell me about the property and I'll give you a more honest number."
+        ]
+      },
+      {
+        keys: ['off plan','off-plan','floor plan','plans','development','developer','unbuilt','new build','render'],
+        replies: [
+          "Off-plan is actually one of our specialities. We take a flat 2D floor plan and turn it into a cinematic walkthrough — so buyers can feel what it's like to stand inside a space that doesn't exist yet. Starts from €890 for a single unit type.\n\nIf you've got multiple units or need a full presale package (hero film + stills + social cuts), those start from €2,490. What stage is your development at?",
+          "That's exactly what our off-plan service is built for. Floor plans in → cinematic video out, no site visit needed. Single unit types from €890, presale packages from €2,490, and full developer launch packages (10 unit types + hero film) from €4,900.\n\nDepends a lot on what you need though — how many units or unit types are we talking?"
+        ]
+      },
+      {
+        keys: ['agency','portfolio','multiple','bulk','volume','properties','listings'],
+        replies: [
+          "If you've got a few properties on the go, our 10-property package is worth looking at — it's €1,490 total, so €149 per property. You save 22% versus doing them individually, and you can mix flats and homes.\n\nFor ongoing volume we also do monthly retainer arrangements. How many listings are you typically dealing with?",
+          "Volume work is something we do a lot of. The 10-property bundle is €1,490 (€149 each) — a solid saving if you've got the listings to fill it. Above that we can build a retainer that makes sense for your pipeline.\n\nWhat does your typical month look like in terms of listings?"
+        ]
+      },
+      {
+        keys: ['social','reel','instagram','tiktok','vertical','story','shorts'],
+        replies: [
+          "Social content is a big part of what we do. A social reel pack — three vertical short-form cuts, ready for Instagram, TikTok or Stories — starts from €190. Most clients add it on alongside a main walkthrough.\n\nAre you looking for social cuts as a standalone, or as part of a bigger package?"
+        ]
+      },
+      {
+        keys: ['time','how long','turnaround','delivery','deadline','when','days','weeks','fast','quick','urgent','rush'],
+        replies: [
+          "Flat walkthroughs are typically 48 hours. Luxury home films take 4–5 days. Off-plan and developer projects depend on scope — usually 5–10 days.\n\nIf you need something faster, rush delivery (48h on any service) is available for +25%. Got a deadline in mind?",
+          "Standard turnaround is 48h for flat walkthroughs, 4–5 days for luxury homes. Rush delivery is available if you're up against a deadline — just adds 25%.\n\nWhen do you need it by?"
+        ]
+      },
+      {
+        keys: ['contact','reach','email','phone','talk','speak','call','meet','discuss','chat','quote','enquir','get in touch','send'],
+        replies: [
+          "Best way is through our Contact form — just hit 'Contact' in the top menu. We usually come back within a few hours, same day at the latest.\n\nOr if you want to give me a bit more detail here first, I'm happy to help narrow things down before you reach out.",
+          "You can drop us a message through the Contact panel (top right nav). We reply same day, usually within a few hours.\n\nAlternatively — what's the project? Happy to have a more useful conversation here first."
+        ]
+      },
+      {
+        keys: ['where','location','based','country','city','office','uk','spain','dubai','australia','usa','america'],
+        replies: [
+          "We're based in the UK but work with clients across Spain, Dubai, the US and Australia regularly. Fully remote production means location doesn't really factor into the process.\n\nWhere are you based, and where's the property?",
+          "Our team is UK-based but the work is fully remote — we've delivered projects in Dubai, Marbella, Miami and Sydney. All we need are your photos or plans. Where's the property located?"
+        ]
+      },
+      {
+        keys: ['staging','virtual staging','twilight','edit','photo','image','still'],
+        replies: [
+          "We do virtual staging and twilight edits too — those start from €20 per image. Good way to present a property at its best without a full shoot.\n\nIs that something you need alongside a video, or standalone?"
+        ]
+      },
+      {
+        keys: ['thank','thanks','great','perfect','awesome','appreciate','brilliant','love it','nice'],
+        replies: [
+          "Really glad to help! If anything else comes up, just ask. And when you're ready to get the ball rolling, the Contact form is the quickest way to reach the team.",
+          "Anytime! Feel free to come back with anything else. When you're ready to move forward, just hit Contact in the nav.",
+          "Of course! Good luck with the project — and don't hesitate to get in touch when you're ready to start."
+        ]
+      },
     ];
-    const fallback = "Great question! For more details, I'd recommend reaching out through our Contact form — our team will be happy to help with anything specific.";
+    const fallbacks = [
+      "That's a good one — honestly I might not be the best person to answer that precisely. Best thing would be to drop us a message through the Contact form and our team can give you a proper answer. What else can I help with?",
+      "I want to give you the right answer rather than guess. The team would be able to speak to that directly — you can reach them through the Contact panel in the nav. Anything else on your mind?",
+      "Hmm, I'm not sure I can do that question justice here. Worth sending it through to the team directly — they're pretty responsive. Is there anything else I can help with in the meantime?"
+    ];
+
+    function pickReply(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
 
     function addBubble(text, who) {
       const el = document.createElement('div');
@@ -1189,11 +1278,13 @@
       chatMessages.appendChild(typing);
       chatMessages.scrollTop = chatMessages.scrollHeight;
 
+      const delay = 900 + Math.random() * 600;
       setTimeout(() => {
         typing.remove();
         const match = botResponses.find(r => r.keys.some(k => lower.includes(k)));
-        addBubble(match ? match.reply : fallback, 'bot');
-      }, 900 + Math.random() * 400);
+        const text = match ? pickReply(match.replies) : pickReply(fallbacks);
+        addBubble(text, 'bot');
+      }, delay);
     }
 
     function sendMessage() {
@@ -1208,7 +1299,7 @@
       const isOpen = chatPanel.classList.toggle('open');
       chatToggle.classList.toggle('open', isOpen);
       if (isOpen && chatMessages.children.length === 0) {
-        setTimeout(() => addBubble("Hi there! I'm the MotixMedia assistant. Ask me anything about our services, pricing, or how to get in touch.", 'bot'), 300);
+        setTimeout(() => addBubble("Hey! Thanks for stopping by. I can help with pricing, what we do, timelines — or just point you in the right direction. What are you working on?", 'bot'), 300);
       }
       if (isOpen) chatInput.focus();
     });

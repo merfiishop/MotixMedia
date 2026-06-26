@@ -175,6 +175,35 @@
     @media(max-width:620px){.ways{grid-template-columns:1fr}.work-grid{grid-template-columns:1fr}}
     @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
 
+    /* STATS BANNER */
+    .mx-stats{position:relative;width:100%;overflow:hidden;background:#0A0A0A;font-family:'Inter',sans-serif;padding:78px 24px;color:#fff;border-top:1px solid rgba(212,175,55,.12);border-bottom:1px solid rgba(212,175,55,.12)}
+    .mx-stats__wash{position:absolute;inset:0;pointer-events:none;
+      background-image:linear-gradient(rgba(212,175,55,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.10) 1px,transparent 1px);
+      background-size:46px 46px;opacity:.5;
+      -webkit-mask-image:radial-gradient(120% 100% at 50% 0%,#000 25%,transparent 75%);
+      mask-image:radial-gradient(120% 100% at 50% 0%,#000 25%,transparent 75%)}
+    .mx-reg{position:absolute;width:16px;height:16px;pointer-events:none}
+    .mx-reg.tl{top:16px;left:16px;border-top:1px solid rgba(212,175,55,.3);border-left:1px solid rgba(212,175,55,.3)}
+    .mx-reg.tr{top:16px;right:16px;border-top:1px solid rgba(212,175,55,.3);border-right:1px solid rgba(212,175,55,.3)}
+    .mx-reg.bl{bottom:16px;left:16px;border-bottom:1px solid rgba(212,175,55,.3);border-left:1px solid rgba(212,175,55,.3)}
+    .mx-reg.br{bottom:16px;right:16px;border-bottom:1px solid rgba(212,175,55,.3);border-right:1px solid rgba(212,175,55,.3)}
+    .mx-stats__inner{position:relative;max-width:1120px;margin:0 auto;text-align:center}
+    .mx-stats__eyebrow{display:flex;align-items:center;justify-content:center;gap:11px;font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:#D4AF37;font-weight:600}
+    .mx-d{width:6px;height:6px;background:#D4AF37;transform:rotate(45deg);display:inline-block}
+    .mx-stats__title{font-family:'Montserrat',sans-serif;font-weight:800;font-size:clamp(24px,3.6vw,38px);letter-spacing:-.01em;color:#fff;margin:14px 0 50px}
+    .mx-stats__title span{color:#D4AF37}
+    .mx-stats__grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+    .mx-stat{position:relative;padding:8px 22px}
+    .mx-stat + .mx-stat::before{content:"";position:absolute;left:0;top:14%;height:72%;width:1px;background:linear-gradient(180deg,transparent,rgba(212,175,55,.35),transparent)}
+    .mx-stat__num{font-family:'Montserrat',sans-serif;font-weight:900;font-size:clamp(46px,6vw,68px);line-height:1;color:#fff;letter-spacing:-.02em}
+    .mx-stat__num .mx-suf{color:#D4AF37}
+    .mx-stat__num .mx-pre{font-size:.32em;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.04em;text-transform:uppercase;display:block;margin-bottom:6px}
+    .mx-stat__label{font-family:'Montserrat',sans-serif;font-weight:700;font-size:13.5px;color:#fff;letter-spacing:.02em;margin-top:16px}
+    .mx-stat__sub{font-size:11.5px;color:rgba(255,255,255,.45);margin-top:6px;line-height:1.45}
+    .mx-stats__source{font-size:10px;color:rgba(255,255,255,.3);letter-spacing:.04em;margin-top:46px}
+    @media(max-width:760px){.mx-stats__grid{grid-template-columns:1fr 1fr;gap:38px 0}.mx-stat + .mx-stat::before{display:none}.mx-stat:nth-child(even)::before{content:"";display:block;position:absolute;left:0;top:14%;height:72%;width:1px;background:linear-gradient(180deg,transparent,rgba(212,175,55,.35),transparent)}}
+    @media(max-width:420px){.mx-stats__grid{grid-template-columns:1fr;gap:34px}.mx-stat:nth-child(even)::before{display:none}}
+
     /* FOOTER */
     footer {
       background-color: var(--nav-colour);
@@ -1015,6 +1044,39 @@
       </a>
     </section>
 
+    <!-- STATS BANNER -->
+    <section class="mx-stats" id="mxStats">
+      <div class="mx-stats__wash"></div>
+      <span class="mx-reg tl"></span><span class="mx-reg tr"></span><span class="mx-reg bl"></span><span class="mx-reg br"></span>
+      <div class="mx-stats__inner">
+        <div class="mx-stats__eyebrow"><span class="mx-d"></span> By the Numbers <span class="mx-d"></span></div>
+        <h2 class="mx-stats__title">Why property video <span>pays for itself.</span></h2>
+        <div class="mx-stats__grid">
+          <div class="mx-stat">
+            <div class="mx-stat__num" data-target="4" data-suffix="&times;"></div>
+            <div class="mx-stat__label">More buyer inquiries</div>
+            <div class="mx-stat__sub">Listings with video vs. photos only</div>
+          </div>
+          <div class="mx-stat">
+            <div class="mx-stat__num" data-target="32" data-suffix="%"></div>
+            <div class="mx-stat__label">Faster sale</div>
+            <div class="mx-stat__sub">Homes marketed with video</div>
+          </div>
+          <div class="mx-stat">
+            <div class="mx-stat__num" data-prefix="up to " data-target="80" data-suffix="%"></div>
+            <div class="mx-stat__label">Lower production cost</div>
+            <div class="mx-stat__sub">vs. traditional video crews</div>
+          </div>
+          <div class="mx-stat">
+            <div class="mx-stat__num" data-target="48" data-suffix="h"></div>
+            <div class="mx-stat__label">Delivery</div>
+            <div class="mx-stat__sub">From brief to finished film</div>
+          </div>
+        </div>
+        <p class="mx-stats__source">Industry data: National Association of Realtors &amp; Realtor.com, 2024&ndash;2026. Cost comparison vs. traditional production.</p>
+      </div>
+    </section>
+
     <!-- TESTIMONIALS -->
     <section class="testimonials">
       <div class="t-eyebrow"><span class="t-d"></span><span>What Clients Say</span><span class="t-d"></span></div>
@@ -1295,6 +1357,26 @@
   </div>
 
   <script>
+    // Stats counter — count up on scroll into view
+    (function(){
+      function animate(el){
+        var target=parseFloat(el.dataset.target),suffix=el.dataset.suffix||"",
+            prefix=el.dataset.prefix?'<span class="mx-pre">'+el.dataset.prefix+'</span>':"",
+            dur=1500,start=null;
+        function step(ts){
+          if(!start) start=ts;
+          var p=Math.min((ts-start)/dur,1),eased=1-Math.pow(1-p,3),val=Math.round(eased*target);
+          el.innerHTML=prefix+val+'<span class="mx-suf">'+suffix+'</span>';
+          if(p<1) requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      }
+      var io=new IntersectionObserver(function(entries){
+        entries.forEach(function(e){ if(e.isIntersecting){ animate(e.target); io.unobserve(e.target); } });
+      },{threshold:0.4});
+      document.querySelectorAll('.mx-stat__num').forEach(function(el){ io.observe(el); });
+    })();
+
     // Testimonials infinite scroll — duplicate cards for seamless loop
     (function(){ var t = document.getElementById('t-track'); if(t) t.innerHTML += t.innerHTML; })();
 

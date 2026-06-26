@@ -312,7 +312,7 @@ h1 .thin{font-weight:300;color:var(--grey)}
           <div class="big">Have listings or a development to <span class="g">bring to life?</span></div>
           <div class="small">Custom quotes for agents, luxury sellers &amp; developers &mdash; volume &amp; retainer pricing available.</div>
         </div>
-        <button class="btn" onclick="window.location='index.html'">Request a Quote <svg viewBox="0 0 24 24"><path d="M7 7h10v10M7 17L17 7"/></svg></button>
+        <button class="btn mx-quote-open">Request a Quote <svg viewBox="0 0 24 24"><path d="M7 7h10v10M7 17L17 7"/></svg></button>
       </div>
 
       <p class="disclaimer">Indicative starting prices in EUR, excl. VAT. Off-plan and presale work is scoped to unit count, number of scenes, and revisions. The 10-Property Package mixes flats and homes; premium cinematic and off-plan units are quoted separately. Rush delivery +25%.</p>
@@ -324,6 +324,60 @@ h1 .thin{font-weight:300;color:var(--grey)}
     </div>
   </div>
 </main>
+
+<!-- QUOTE MODAL -->
+<div class="mx-modal" id="mxQuote" aria-hidden="true">
+  <div class="mx-modal__overlay" data-mx-close></div>
+  <div class="mx-modal__card" role="dialog" aria-modal="true" aria-label="Request a quote">
+    <button class="mx-modal__x" data-mx-close aria-label="Close">&times;</button>
+    <div class="mx-modal__head">
+      <div class="mx-modal__eyebrow"><span class="mx-d"></span> Request a Quote</div>
+      <h3 class="mx-modal__title">Tell us about your project</h3>
+      <p class="mx-modal__sub">A few quick choices and we&rsquo;ll reply with a tailored quote within one business day.</p>
+    </div>
+    <div class="mx-modal__body" id="mxBody">
+      <div class="mx-field"><label class="mx-lab">Is the property…</label><div class="mx-toggles" data-group="project"><button type="button" class="mx-toggle" data-val="Existing property">Existing property</button><button type="button" class="mx-toggle" data-val="To be built (off-plan)">To be built &mdash; off-plan</button></div></div>
+      <div class="mx-field"><label class="mx-lab">Property type</label><div class="mx-toggles" data-group="type"><button type="button" class="mx-toggle" data-val="Flat / Apartment">Flat / Apartment</button><button type="button" class="mx-toggle" data-val="House / Villa">House / Villa</button></div></div>
+      <div class="mx-field"><label class="mx-lab">What do you need?</label><div class="mx-toggles mx-toggles--3" data-group="package"><button type="button" class="mx-toggle" data-val="Single video">Single video</button><button type="button" class="mx-toggle" data-val="Pack of 10">Pack of 10</button><button type="button" class="mx-toggle" data-val="Developer launch (10+ units)">Developer launch</button></div></div>
+      <div class="mx-grid2"><div class="mx-field"><label class="mx-lab">Your name</label><input class="mx-input" id="mxName" type="text" placeholder="Full name"></div><div class="mx-field"><label class="mx-lab">Location / market</label><input class="mx-input" id="mxLoc" type="text" placeholder="e.g. Dubai, Marbella, London"></div></div>
+      <div class="mx-grid2"><div class="mx-field"><label class="mx-lab">Email</label><input class="mx-input" id="mxEmail" type="email" placeholder="you@email.com"></div><div class="mx-field"><label class="mx-lab">Phone / WhatsApp</label><input class="mx-input" id="mxPhone" type="tel" placeholder="+ country code"></div></div>
+      <div class="mx-field"><label class="mx-lab">Anything else? <span class="mx-opt">(optional)</span></label><textarea class="mx-input mx-textarea" id="mxMsg" rows="2" placeholder="Number of units, deadline, links to plans or photos…"></textarea></div>
+      <div class="mx-err" id="mxErr">Please fill in your name, email, and select the three options above.</div>
+      <button type="button" class="mx-submit" id="mxSend">Send Request <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg></button>
+      <div class="mx-alt">or <a href="mailto:merfii.shop@gmail.com">send it by email instead</a></div>
+      <p class="mx-priv">We reply within one business day. Your details are only used to prepare your quote.</p>
+    </div>
+  </div>
+</div>
+
+<style>
+.mx-modal{position:fixed;inset:0;z-index:9999;display:none;align-items:center;justify-content:center;padding:20px;font-family:'Inter',sans-serif}
+.mx-modal.is-open{display:flex}
+.mx-modal__overlay{position:absolute;inset:0;background:rgba(0,0,0,.72);backdrop-filter:blur(6px)}
+.mx-modal__card{position:relative;z-index:1;width:100%;max-width:540px;max-height:92vh;overflow-y:auto;background:#0E0E10;border:1px solid rgba(212,175,55,.3);border-radius:18px;padding:30px 30px 26px;box-shadow:0 40px 120px rgba(0,0,0,.7);animation:mxpop .35s cubic-bezier(.2,.8,.2,1)}
+@keyframes mxpop{from{opacity:0;transform:translateY(18px) scale(.98)}to{opacity:1;transform:none}}
+.mx-modal__x{position:absolute;top:16px;right:18px;background:none;border:none;color:rgba(255,255,255,.5);font-size:26px;line-height:1;cursor:pointer;transition:.2s}
+.mx-modal__x:hover{color:#D4AF37}
+.mx-modal__eyebrow{display:flex;align-items:center;gap:10px;font-size:10.5px;letter-spacing:.26em;text-transform:uppercase;color:#D4AF37;font-weight:600}
+.mx-d{width:6px;height:6px;background:#D4AF37;transform:rotate(45deg);display:inline-block}
+.mx-modal__title{font-family:'Montserrat',sans-serif;font-weight:800;color:#fff;font-size:24px;letter-spacing:-.01em;margin:12px 0 6px}
+.mx-modal__sub{color:rgba(255,255,255,.55);font-size:13.5px;line-height:1.5;margin-bottom:22px}
+.mx-field{margin-bottom:16px}.mx-lab{display:block;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:500;margin-bottom:9px}
+.mx-opt{text-transform:none;letter-spacing:0;color:rgba(255,255,255,.3)}
+.mx-toggles{display:grid;grid-template-columns:1fr 1fr;gap:9px}.mx-toggles--3{grid-template-columns:1fr 1fr 1fr}
+.mx-toggle{font-family:'Inter',sans-serif;font-size:13px;font-weight:500;color:rgba(255,255,255,.8);background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:13px 10px;cursor:pointer;transition:.2s;text-align:center;line-height:1.25}
+.mx-toggle:hover{border-color:rgba(212,175,55,.5)}.mx-toggle.is-sel{background:#D4AF37;border-color:#D4AF37;color:#0A0A0A;font-weight:700}
+.mx-grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.mx-input{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:12px 14px;color:#fff;font-family:'Inter',sans-serif;font-size:14px;transition:.2s}
+.mx-input::placeholder{color:rgba(255,255,255,.32)}.mx-input:focus{outline:none;border-color:#D4AF37;background:rgba(212,175,55,.05)}.mx-textarea{resize:vertical;min-height:54px}
+.mx-err{display:none;color:#E5A3A3;font-size:12.5px;margin:4px 0 12px;padding:10px 12px;border:1px solid rgba(229,163,163,.3);border-radius:8px;background:rgba(229,163,163,.06)}.mx-err.is-show{display:block}
+.mx-submit{width:100%;display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:8px;background:#D4AF37;color:#0A0A0A;border:none;border-radius:999px;padding:16px;cursor:pointer;font-family:'Montserrat',sans-serif;font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;box-shadow:0 10px 30px rgba(212,175,55,.3);transition:.25s}
+.mx-submit:hover{transform:translateY(-2px)}.mx-submit:disabled{opacity:.6;cursor:not-allowed;transform:none}
+.mx-submit svg{width:16px;height:16px;stroke:#0A0A0A;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.mx-alt{text-align:center;font-size:12.5px;color:rgba(255,255,255,.45);margin-top:14px}.mx-alt a{color:#D4AF37;text-decoration:none}
+.mx-priv{text-align:center;font-size:11px;color:rgba(255,255,255,.3);margin-top:14px;line-height:1.5}
+@media(max-width:560px){.mx-toggles--3{grid-template-columns:1fr}.mx-grid2{grid-template-columns:1fr}.mx-modal__card{padding:26px 20px 22px}}
+</style>
 
 <script>
   const hamburger  = document.getElementById('hamburger');
@@ -340,6 +394,48 @@ h1 .thin{font-weight:300;color:var(--grey)}
       hamburger.setAttribute('aria-expanded', false);
     });
   });
+
+  // Quote modal
+  (function(){
+    var modal   = document.getElementById('mxQuote');
+    var choices = {project:'', type:'', package:''};
+    function mxOpen(e){ if(e) e.preventDefault(); modal.classList.add('is-open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
+    function mxClose(){ modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+    document.addEventListener('click', function(e){
+      if(e.target.closest('.mx-quote-open, a[href="#quote"]')){ mxOpen(e); }
+      if(e.target.hasAttribute('data-mx-close') || e.target.closest('[data-mx-close]')){ mxClose(); }
+    });
+    document.addEventListener('keydown', function(e){ if(e.key==='Escape') mxClose(); });
+    modal.querySelectorAll('.mx-toggles').forEach(function(group){
+      group.addEventListener('click', function(e){
+        var btn = e.target.closest('.mx-toggle'); if(!btn) return;
+        group.querySelectorAll('.mx-toggle').forEach(function(b){ b.classList.remove('is-sel'); });
+        btn.classList.add('is-sel');
+        choices[group.dataset.group] = btn.dataset.val;
+      });
+    });
+    function mxVal(id){ return (document.getElementById(id).value||'').trim(); }
+    document.getElementById('mxSend').addEventListener('click', function(){
+      var name=mxVal('mxName'), email=mxVal('mxEmail');
+      if(!name || !email || !choices.project || !choices.type || !choices.package){
+        document.getElementById('mxErr').classList.add('is-show'); return;
+      }
+      document.getElementById('mxErr').classList.remove('is-show');
+      var btn = document.getElementById('mxSend');
+      btn.disabled = true; btn.innerHTML = 'Sending…';
+      fetch('https://formspree.io/f/mzdldaye', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+        body: JSON.stringify({ _subject: 'New Quote Request — MotixMedia', Project: choices.project, 'Property type': choices.type, Package: choices.package, Name: name, Email: email, Phone: mxVal('mxPhone')||'—', Location: mxVal('mxLoc')||'—', Message: mxVal('mxMsg')||'—' })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if(data.ok){ document.getElementById('mxBody').innerHTML = '<div style="text-align:center;padding:40px 0"><div style="font-size:44px;color:#D4AF37;margin-bottom:14px">✓</div><p style="font-family:Montserrat,sans-serif;font-weight:700;font-size:18px;color:#D4AF37;letter-spacing:.04em">Quote request sent!</p><p style="color:rgba(255,255,255,.55);margin-top:8px;font-size:13px;line-height:1.6">Thanks, '+name+'. We\'ll come back to you within one business day.</p></div>'; }
+        else { btn.disabled=false; btn.innerHTML='Send Request'; document.getElementById('mxErr').textContent='Something went wrong — please try the email link below.'; document.getElementById('mxErr').classList.add('is-show'); }
+      })
+      .catch(function(){ btn.disabled=false; btn.innerHTML='Send Request'; document.getElementById('mxErr').textContent='Something went wrong — please try the email link below.'; document.getElementById('mxErr').classList.add('is-show'); });
+    });
+  })();
 </script>
 </body>
 </html>

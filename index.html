@@ -207,55 +207,50 @@
     @media(max-width:420px){.mx-stats__grid{grid-template-columns:1fr;gap:34px}.mx-stat:nth-child(even)::before{display:none}}
 
     /* FOOTER */
-    footer {
-      background-color: var(--nav-colour);
-      border-top: 1px solid rgba(212, 175, 55, 0.18);
-      color: var(--white);
-    }
+    .ft{background:#080808;border-top:1px solid rgba(212,175,55,.18);color:#fff;font-family:'Inter',sans-serif;position:relative;overflow:hidden}
+    .ft::before{content:'';position:absolute;inset:0;pointer-events:none;
+      background-image:linear-gradient(rgba(212,175,55,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(212,175,55,.055) 1px,transparent 1px);
+      background-size:52px 52px;
+      -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 80%);
+      mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 80%)}
 
-    .footer-inner {
-      padding: var(--section-padding) var(--site-padding) clamp(32px, 4vw, 52px);
-      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
-    }
+    /* top strip */
+    .ft-top{max-width:1180px;margin:0 auto;padding:60px 28px 48px;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:52px}
+    .ft-brand{}
+    .ft-brand__logo{display:flex;align-items:center;gap:10px;margin-bottom:18px;text-decoration:none}
+    .ft-brand__name{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.8125rem;letter-spacing:.22em;text-transform:uppercase;color:#D4AF37}
+    .ft-brand__tagline{font-size:13px;color:rgba(255,255,255,.45);line-height:1.65;max-width:28ch;margin-bottom:26px}
+    .ft-social{display:flex;gap:10px}
+    .ft-social a{width:36px;height:36px;border-radius:50%;border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.45);transition:border-color .2s,color .2s,background .2s;text-decoration:none}
+    .ft-social a:hover{border-color:#D4AF37;color:#D4AF37;background:rgba(212,175,55,.08)}
+    .ft-social svg{width:15px;height:15px;fill:currentColor}
 
-    .footer-heading {
-      font-family: 'Montserrat', sans-serif;
-      font-size: clamp(3.5rem, 9vw, 8rem);
-      font-weight: 300;
-      letter-spacing: 0.04em;
-      line-height: 1;
-      color: var(--white);
-      margin: 0 0 clamp(32px, 4vw, 56px);
-      display: block;
-    }
+    /* column */
+    .ft-col__label{font-family:'Montserrat',sans-serif;font-weight:700;font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#D4AF37;margin-bottom:20px}
+    .ft-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:11px}
+    .ft-col ul li a{font-size:13px;color:rgba(255,255,255,.48);text-decoration:none;transition:color .2s}
+    .ft-col ul li a:hover{color:#fff}
 
-    .footer-meta {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+    /* divider */
+    .ft-div{max-width:1180px;margin:0 auto 0;padding:0 28px;border-top:1px solid rgba(255,255,255,.06)}
 
-    .footer-meta p {
-      font-family: 'Inter', sans-serif;
-      font-size: 0.625rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: rgba(212, 175, 55, 0.55);
-      margin: 0;
-    }
+    /* bottom strip */
+    .ft-bottom{max-width:1180px;margin:0 auto;padding:22px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .ft-copy{font-size:10.5px;color:rgba(255,255,255,.28);letter-spacing:.06em}
+    .ft-legal{display:flex;gap:20px}
+    .ft-legal a{font-size:10.5px;color:rgba(255,255,255,.28);text-decoration:none;letter-spacing:.04em;transition:color .2s}
+    .ft-legal a:hover{color:#D4AF37}
 
-    .footer-image {
-      width: 100%;
-      aspect-ratio: 16 / 7;
-      overflow: hidden;
-    }
+    /* payment badges */
+    .ft-pay{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .ft-pay__badge{height:26px;padding:0 9px;border-radius:5px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center}
+    .ft-pay__badge svg{display:block}
 
-    .footer-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      opacity: 0.5;
+    @media(max-width:900px){.ft-top{grid-template-columns:1fr 1fr;gap:36px}}
+    @media(max-width:560px){
+      .ft-top{grid-template-columns:1fr;gap:30px;padding:44px 20px 36px}
+      .ft-bottom{flex-direction:column;align-items:flex-start;gap:16px;padding:20px}
+      .ft-legal{flex-wrap:wrap;gap:14px}
     }
 
     /* ── QUOTE MODAL ── */
@@ -1288,14 +1283,136 @@
   </section>
 
   <!-- FOOTER -->
-  <footer>
-    <div class="footer-inner">
-      <span class="footer-heading">MotixMedia</span>
-      <div class="footer-meta">
-        <p>Architectural Film &amp; Production</p>
-        <p>&copy; 2026 MotixMedia. All rights reserved.</p>
+  <footer class="ft">
+
+    <!-- top grid -->
+    <div class="ft-top">
+
+      <!-- brand column -->
+      <div class="ft-brand">
+        <a href="index.html" class="ft-brand__logo">
+          <svg width="26" height="20" viewBox="0 0 60 48" fill="none"><polygon points="0,48 0,0 10,0 30,26 50,0 60,0 60,48 50,48 50,14 30,38 10,14 10,48" fill="#D4AF37"/></svg>
+          <span class="ft-brand__name">MotixMedia</span>
+        </a>
+        <p class="ft-brand__tagline">Cinematic architectural film for finished homes and buildings that don't exist yet.</p>
+        <div class="ft-social">
+          <!-- Instagram -->
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 1.17.055 1.805.249 2.227.415a4.49 4.49 0 0 1 1.675 1.09 4.49 4.49 0 0 1 1.09 1.676c.166.421.36 1.057.415 2.226.058 1.266.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.055 1.17-.249 1.805-.415 2.227a4.49 4.49 0 0 1-1.09 1.675 4.49 4.49 0 0 1-1.675 1.09c-.422.166-1.057.36-2.227.415-1.266.058-1.646.07-4.85.07s-3.584-.012-4.85-.07c-1.17-.055-1.805-.249-2.226-.415a4.49 4.49 0 0 1-1.676-1.09 4.49 4.49 0 0 1-1.09-1.675c-.166-.422-.36-1.057-.415-2.227C2.175 15.584 2.163 15.204 2.163 12s.012-3.584.07-4.85c.055-1.17.249-1.805.415-2.226a4.49 4.49 0 0 1 1.09-1.676 4.49 4.49 0 0 1 1.676-1.09c.421-.166 1.057-.36 2.226-.415C8.416 2.175 8.796 2.163 12 2.163zm0-2.163C8.741 0 8.333.014 7.053.072 5.775.131 4.902.333 4.14.63a6.65 6.65 0 0 0-2.404 1.566A6.65 6.65 0 0 0 .63 4.6C.333 5.362.131 6.235.072 7.513.014 8.793 0 9.201 0 12c0 2.8.014 3.208.072 4.487.059 1.278.261 2.151.558 2.913a6.65 6.65 0 0 0 1.566 2.404 6.65 6.65 0 0 0 2.404 1.566c.762.297 1.635.499 2.913.558C8.793 23.986 9.201 24 12 24c2.8 0 3.208-.014 4.487-.072 1.278-.059 2.151-.261 2.913-.558a6.65 6.65 0 0 0 2.404-1.566 6.65 6.65 0 0 0 1.566-2.404c.297-.762.499-1.635.558-2.913C23.986 15.207 24 14.8 24 12c0-2.8-.014-3.207-.072-4.487-.059-1.278-.261-2.151-.558-2.913a6.65 6.65 0 0 0-1.566-2.404A6.65 6.65 0 0 0 19.4.63C18.638.333 17.765.131 16.487.072 15.207.014 14.8 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88z"/></svg>
+          </a>
+          <!-- LinkedIn -->
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <!-- YouTube -->
+          <a href="#" aria-label="YouTube">
+            <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+        </div>
       </div>
-    </div>
+
+      <!-- nav column -->
+      <div class="ft-col">
+        <div class="ft-col__label">Navigate</div>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#studio">Studio</a></li>
+          <li><a href="services.html">Packages</a></li>
+          <li><a href="#" id="ft-contact-trigger">Contact</a></li>
+        </ul>
+      </div>
+
+      <!-- services column -->
+      <div class="ft-col">
+        <div class="ft-col__label">Services</div>
+        <ul>
+          <li><a href="services.html">Property Film</a></li>
+          <li><a href="services.html">Off-Plan CGI</a></li>
+          <li><a href="services.html">Social Reels</a></li>
+          <li><a href="services.html">Virtual Staging</a></li>
+          <li><a href="services.html">Developer Launch</a></li>
+        </ul>
+      </div>
+
+      <!-- contact column -->
+      <div class="ft-col">
+        <div class="ft-col__label">Get in Touch</div>
+        <ul>
+          <li><a href="mailto:merfii.shop@gmail.com">merfii.shop@gmail.com</a></li>
+          <li><a href="#" class="mx-quote-open">Request a Quote</a></li>
+          <li><a href="#">Dubai · Marbella · London</a></li>
+          <li><a href="#">48 h Delivery</a></li>
+        </ul>
+      </div>
+
+    </div><!-- /ft-top -->
+
+    <div class="ft-div"></div>
+
+    <!-- bottom bar -->
+    <div class="ft-bottom">
+      <span class="ft-copy">&copy; 2026 MotixMedia. All rights reserved.</span>
+
+      <div class="ft-legal">
+        <a href="#">Privacy Policy</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Cookie Policy</a>
+      </div>
+
+      <!-- payment icons -->
+      <div class="ft-pay">
+        <!-- Visa -->
+        <div class="ft-pay__badge" title="Visa">
+          <svg width="38" height="13" viewBox="0 0 38 13" fill="none">
+            <text x="0" y="11" font-family="Arial,sans-serif" font-size="13" font-weight="900" font-style="italic" fill="#fff" letter-spacing="-0.5">VISA</text>
+          </svg>
+        </div>
+        <!-- Mastercard -->
+        <div class="ft-pay__badge" title="Mastercard">
+          <svg width="34" height="22" viewBox="0 0 34 22" fill="none">
+            <circle cx="12" cy="11" r="10" fill="#EB001B"/>
+            <circle cx="22" cy="11" r="10" fill="#F79E1B"/>
+            <path d="M17 4.8a10 10 0 0 1 0 12.4A10 10 0 0 1 17 4.8z" fill="#FF5F00"/>
+          </svg>
+        </div>
+        <!-- PayPal -->
+        <div class="ft-pay__badge" title="PayPal">
+          <svg width="52" height="14" viewBox="0 0 52 14" fill="none">
+            <text x="0" y="11" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#009cde">Pay</text>
+            <text x="22" y="11" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="#003087">Pal</text>
+          </svg>
+        </div>
+        <!-- Apple Pay -->
+        <div class="ft-pay__badge" title="Apple Pay">
+          <svg width="46" height="18" viewBox="0 0 46 18" fill="none">
+            <path d="M8.5 3.5c.6-.7 1-1.7.9-2.7-.9.1-2 .6-2.7 1.4-.6.7-1.1 1.7-1 2.6 1 .1 2-.5 2.8-1.3z" fill="#fff"/>
+            <path d="M9.4 4.9c-1.5-.1-2.8.9-3.5.9-.7 0-1.8-.8-3-.8C1.5 5.1 0 6.2 0 8.6c0 1.4.5 2.9 1.2 3.9.6.9 1.2 1.7 2.1 1.7.9 0 1.2-.6 2.3-.6 1.1 0 1.4.6 2.3.6.9 0 1.5-.8 2.1-1.7.4-.6.6-1.2.7-1.4-.8-.3-2.2-1.3-2.2-3.1 0-1.5.9-2.4 1.9-2.8l-.1-.3z" fill="#fff"/>
+            <text x="14" y="12" font-family="Arial,sans-serif" font-size="9" font-weight="600" fill="#fff">Pay</text>
+          </svg>
+        </div>
+        <!-- Bank Transfer -->
+        <div class="ft-pay__badge" title="Bank Transfer">
+          <svg width="36" height="18" viewBox="0 0 36 18" fill="none">
+            <rect x="2" y="8" width="32" height="2" rx="1" fill="rgba(255,255,255,.5)"/>
+            <rect x="5" y="10" width="3" height="5" rx=".5" fill="rgba(255,255,255,.5)"/>
+            <rect x="11" y="10" width="3" height="5" rx=".5" fill="rgba(255,255,255,.5)"/>
+            <rect x="17" y="10" width="3" height="5" rx=".5" fill="rgba(255,255,255,.5)"/>
+            <rect x="23" y="10" width="3" height="5" rx=".5" fill="rgba(255,255,255,.5)"/>
+            <rect x="29" y="10" width="3" height="5" rx=".5" fill="rgba(255,255,255,.5)"/>
+            <polygon points="18,1 34,8 2,8" fill="rgba(255,255,255,.5)"/>
+            <rect x="2" y="15" width="32" height="2" rx="1" fill="rgba(255,255,255,.5)"/>
+          </svg>
+        </div>
+        <!-- Stripe -->
+        <div class="ft-pay__badge" title="Stripe">
+          <svg width="34" height="14" viewBox="0 0 34 14" fill="none">
+            <text x="0" y="11" font-family="Arial,sans-serif" font-size="12" font-weight="800" fill="#6772e5">stripe</text>
+          </svg>
+        </div>
+      </div>
+
+    </div><!-- /ft-bottom -->
+
   </footer>
 
   <!-- FLOATING QUOTE BUTTON -->
@@ -1494,6 +1611,8 @@
     });
 
     if (mobileCT) mobileCT.addEventListener('click', openPanel);
+    const ftCT = document.getElementById('ft-contact-trigger');
+    if (ftCT) ftCT.addEventListener('click', openPanel);
 
     // Quote modal
     (function(){

@@ -106,7 +106,7 @@
       background:linear-gradient(180deg,rgba(10,10,10,.45) 0%,rgba(10,10,10,.6) 50%,rgba(10,10,10,.78) 100%)}
     /* hero — transparent, sits on top of fixed video */
     .mx-hero{position:relative;height:92vh;display:flex;align-items:center;justify-content:center}
-    .mx-hero__scrim{position:absolute;inset:0;z-index:1;
+    .mx-hero__scrim{position:absolute;inset:0;z-index:1;pointer-events:none;
       background:linear-gradient(180deg,rgba(10,10,10,.35) 0%,rgba(10,10,10,.1) 40%,rgba(10,10,10,.7) 100%)}
     .mx-hero__inner{position:relative;z-index:2;text-align:center;padding:0 24px;max-width:880px}
     .mx-hero__eyebrow{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#D4AF37;font-weight:600;margin-bottom:22px}
@@ -317,6 +317,8 @@
       border: none;
       border-radius: 999px;
       padding: 13px 22px;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: rgba(0,0,0,0.1);
       font-family: 'Montserrat', sans-serif;
       font-weight: 700;
       font-size: 11px;
@@ -1336,7 +1338,7 @@
           Send Request
           <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
         </button>
-        <div class="mx-alt">or <a href="mailto:merfii.shop@gmail.com" id="mxEmailLink">send it by email instead</a></div>
+        <div class="mx-alt">or <a href="#" id="mxEmailLink">send it by email instead</a></div>
         <p class="mx-priv">We reply within one business day. Your details are only used to prepare your quote.</p>
       </div>
     </div>
@@ -1473,13 +1475,37 @@
     (function(){
       var modal   = document.getElementById('mxQuote');
       var choices = {project:'', type:'', package:''};
+      var mxJustOpened = false;
 
-      function mxOpen(e){ if(e) e.preventDefault(); modal.classList.add('is-open'); modal.setAttribute('aria-hidden','false'); document.body.style.overflow='hidden'; }
-      function mxClose(){ modal.classList.remove('is-open'); modal.setAttribute('aria-hidden','true'); document.body.style.overflow=''; }
+      function mxOpen(e){
+        if(e){ e.preventDefault(); e.stopPropagation(); }
+        if(modal.classList.contains('is-open')) return;
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden','false');
+        document.body.style.overflow='hidden';
+        mxJustOpened = true;
+        setTimeout(function(){ mxJustOpened = false; }, 150);
+      }
+      function mxClose(){
+        if(mxJustOpened) return;
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden','true');
+        document.body.style.overflow='';
+      }
 
+      // Direct listeners on every .mx-quote-open element — works on iOS where document delegation can miss
+      function attachOpenListeners(){
+        document.querySelectorAll('.mx-quote-open, a[href="#quote"]').forEach(function(el){
+          el.addEventListener('touchend', function(e){ e.preventDefault(); mxOpen(e); }, {passive:false});
+          el.addEventListener('click', mxOpen);
+        });
+      }
+      attachOpenListeners();
+
+      // Also catch dynamically via document for any we missed
       document.addEventListener('click', function(e){
         if(e.target.closest('.mx-quote-open, a[href="#quote"]')){ mxOpen(e); }
-        if(e.target.hasAttribute('data-mx-close') || e.target.closest('[data-mx-close]')){ mxClose(); }
+        if(!mxJustOpened && (e.target.hasAttribute('data-mx-close') || e.target.closest('[data-mx-close]'))){ mxClose(); }
       });
       document.addEventListener('keydown', function(e){ if(e.key==='Escape') mxClose(); });
 
@@ -1494,50 +1520,39 @@
 
       function mxVal(id){ return (document.getElementById(id).value||'').trim(); }
 
-      document.getElementById('mxSend').addEventListener('click', function(){
-        var name=mxVal('mxName'), email=mxVal('mxEmail');
+      function buildEmail(){
+        var name=mxVal('mxName'), email=mxVal('mxEmail'), phone=mxVal('mxPhone'), loc=mxVal('mxLoc'), msg=mxVal('mxMsg');
         if(!name || !email || !choices.project || !choices.type || !choices.package){
-          document.getElementById('mxErr').classList.add('is-show'); return;
+          document.getElementById('mxErr').classList.add('is-show'); return null;
         }
         document.getElementById('mxErr').classList.remove('is-show');
+        return {
+          name: name,
+          body: [
+            'New quote request — MotixMedia',
+            '',
+            'Project: '  + choices.project,
+            'Property: ' + choices.type,
+            'Needs: '    + choices.package,
+            'Location: ' + (loc||'—'),
+            '',
+            'Name: '     + name,
+            'Email: '    + email,
+            'Phone: '    + (phone||'—'),
+            'Details: '  + (msg||'—')
+          ].join('\n')
+        };
+      }
 
-        var btn = document.getElementById('mxSend');
-        btn.disabled = true;
-        btn.innerHTML = 'Sending…';
+      function sendQuote(){
+        var d = buildEmail(); if(!d) return;
+        window.location.href = 'mailto:info@motixmedia.com'
+          + '?subject=' + encodeURIComponent('New Quote Request — MotixMedia')
+          + '&body='    + encodeURIComponent(d.body);
+      }
 
-        fetch('https://formspree.io/f/mzdldaye', {
-          method: 'POST',
-          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            _subject: 'New Quote Request — MotixMedia',
-            Project: choices.project,
-            'Property type': choices.type,
-            Package: choices.package,
-            Name: name,
-            Email: email,
-            Phone: mxVal('mxPhone') || '—',
-            Location: mxVal('mxLoc') || '—',
-            Message: mxVal('mxMsg') || '—'
-          })
-        })
-        .then(function(r){ return r.json(); })
-        .then(function(data){
-          if(data.ok){
-            document.getElementById('mxBody').innerHTML = '<div class="mx-success"><div class="mx-success__icon">✓</div><p class="mx-success__title">Quote request sent!</p><p class="mx-success__msg">Thanks, '+name+'. We\'ll review your details and come back to you within one business day.</p></div>';
-          } else {
-            btn.disabled = false;
-            btn.innerHTML = 'Send Request <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>';
-            document.getElementById('mxErr').textContent = 'Something went wrong — please try the email link below.';
-            document.getElementById('mxErr').classList.add('is-show');
-          }
-        })
-        .catch(function(){
-          btn.disabled = false;
-          btn.innerHTML = 'Send Request <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>';
-          document.getElementById('mxErr').textContent = 'Something went wrong — please try the email link below.';
-          document.getElementById('mxErr').classList.add('is-show');
-        });
-      });
+      document.getElementById('mxSend').addEventListener('click', sendQuote);
+      document.getElementById('mxEmailLink').addEventListener('click', function(e){ e.preventDefault(); sendQuote(); });
     })();
 
     // ── MATEO AI CHATBOT ──

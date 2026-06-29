@@ -1520,39 +1520,51 @@
 
       function mxVal(id){ return (document.getElementById(id).value||'').trim(); }
 
-      function buildEmail(){
-        var name=mxVal('mxName'), email=mxVal('mxEmail'), phone=mxVal('mxPhone'), loc=mxVal('mxLoc'), msg=mxVal('mxMsg');
+      document.getElementById('mxSend').addEventListener('click', function(){
+        var name=mxVal('mxName'), email=mxVal('mxEmail');
         if(!name || !email || !choices.project || !choices.type || !choices.package){
-          document.getElementById('mxErr').classList.add('is-show'); return null;
+          document.getElementById('mxErr').classList.add('is-show'); return;
         }
         document.getElementById('mxErr').classList.remove('is-show');
-        return {
-          name: name,
-          body: [
-            'New quote request — MotixMedia',
-            '',
-            'Project: '  + choices.project,
-            'Property: ' + choices.type,
-            'Needs: '    + choices.package,
-            'Location: ' + (loc||'—'),
-            '',
-            'Name: '     + name,
-            'Email: '    + email,
-            'Phone: '    + (phone||'—'),
-            'Details: '  + (msg||'—')
-          ].join('\n')
-        };
-      }
-
-      function sendQuote(){
-        var d = buildEmail(); if(!d) return;
-        window.location.href = 'mailto:info@motixmedia.com'
-          + '?subject=' + encodeURIComponent('New Quote Request — MotixMedia')
-          + '&body='    + encodeURIComponent(d.body);
-      }
-
-      document.getElementById('mxSend').addEventListener('click', sendQuote);
-      document.getElementById('mxEmailLink').addEventListener('click', function(e){ e.preventDefault(); sendQuote(); });
+        var btn = document.getElementById('mxSend');
+        btn.disabled = true;
+        btn.textContent = 'Sending…';
+        fetch('https://formspree.io/f/mzdldaye', {
+          method: 'POST',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            _subject: 'New Quote Request — MotixMedia',
+            Project:        choices.project,
+            'Property type': choices.type,
+            Package:        choices.package,
+            Name:           name,
+            Email:          email,
+            Phone:          mxVal('mxPhone') || '—',
+            Location:       mxVal('mxLoc')   || '—',
+            Message:        mxVal('mxMsg')   || '—'
+          })
+        })
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          if(data.ok){
+            document.getElementById('mxBody').innerHTML =
+              '<div class="mx-success">'
+              + '<div class="mx-success__icon">✓</div>'
+              + '<p class="mx-success__title">Quote request sent!</p>'
+              + '<p class="mx-success__msg">Thanks, ' + name + '. We\'ll come back to you within one business day.</p>'
+              + '</div>';
+          } else {
+            btn.disabled = false; btn.textContent = 'Send Request';
+            document.getElementById('mxErr').textContent = 'Something went wrong — please try again.';
+            document.getElementById('mxErr').classList.add('is-show');
+          }
+        })
+        .catch(function(){
+          btn.disabled = false; btn.textContent = 'Send Request';
+          document.getElementById('mxErr').textContent = 'Something went wrong — please try again.';
+          document.getElementById('mxErr').classList.add('is-show');
+        });
+      });
     })();
 
     // ── MATEO AI CHATBOT ──
